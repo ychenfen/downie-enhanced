@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Downie Enhanced</title>
+  <style>
+    body {
+      width: 400px;
+      min-height: 500px;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .header {
+      padding: 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .header h1 {
+      margin: 0 0 5px 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .header p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .url-section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .url-input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+    }
+
+    .url-input:focus {
+      outline: none;
+      background: white;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(0, 0, 0, 0.2);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .quality-section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .quality-section h3 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .quality-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .quality-option {
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .quality-option:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .quality-option.selected {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .status-section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-online {
+      background: #4CAF50;
+      box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    }
+
+    .status-offline {
+      background: #f44336;
+      box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+    }
+
+    .detected-videos {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .detected-videos h3 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .video-item {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    .video-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .video-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .video-url {
+      opacity: 0.8;
+      word-break: break-all;
+      font-size: 11px;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .footer {
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.8;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .notification {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .notification.show {
+      opacity: 1;
+    }
+
+    .notification.success {
+      background: rgba(76, 175, 80, 0.9);
+    }
+
+    .notification.error {
+      background: rgba(244, 67, 54, 0.9);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎬 Downie Enhanced</h1>
+    <p>Modern Web Video Downloader</p>
+  </div>
+
+  <div class="content">
+    <!-- Server Status -->
+    <div class="status-section">
+      <div class="status-indicator" id="statusIndicator">
+        <div class="status-dot status-offline" id="statusDot"></div>
+        <span id="statusText">Checking server...</span>
+      </div>
+    </div>
+
+    <!-- URL Input -->
+    <div class="url-section">
+      <input 
+        type="url" 
+        class="url-input" 
+        id="urlInput" 
+        placeholder="Paste video URL or use current tab"
+      >
+      <div class="button-group">
+        <button class="btn btn-primary" id="useCurrentTab">
+          📄 Current Tab
+        </button>
+        <button class="btn btn-secondary" id="analyzeBtn">
+          🔍 Analyze
+        </button>
+      </div>
+    </div>
+
+    <!-- Quality Options -->
+    <div class="quality-section">
+      <h3>Quality & Options</h3>
+      <div class="quality-grid" id="qualityGrid">
+        <div class="quality-option selected" data-quality="best">Best</div>
+        <div class="quality-option" data-quality="1080p">1080p</div>
+        <div class="quality-option" data-quality="720p">720p</div>
+        <div class="quality-option" data-quality="480p">480p</div>
+        <div class="quality-option" data-quality="audio">Audio Only</div>
+        <div class="quality-option" data-quality="mp4">Convert MP4</div>
+      </div>
+    </div>
+
+    <!-- Detected Videos -->
+    <div class="detected-videos" id="detectedVideos" style="display: none;">
+      <h3>Detected Videos</h3>
+      <div id="videosList"></div>
+    </div>
+
+    <!-- Download Actions -->
+    <div class="button-group">
+      <button class="btn btn-primary" id="downloadBtn">
+        ⬇️ Download
+      </button>
+      <button class="btn btn-secondary" id="openDashboard">
+        📊 Dashboard
+      </button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>
+      <a href="#" id="settingsLink">Settings</a> |
+      <a href="#" id="helpLink">Help</a> |
+      <a href="http://localhost:3000" target="_blank">Open Dashboard</a>
+    </p>
+  </div>
+
+  <div class="notification" id="notification"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

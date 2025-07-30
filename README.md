@@ -1,105 +1,53 @@
-# 🚀 Downie Enhanced | Web视频下载器
+# 🎬 Downie Enhanced
 
-<div align="center">
+基于 Downie 4 的现代化网页视频下载器，提供完整的 Web 界面和浏览器扩展支持。
 
-**基于Downie 4架构的现代化Web视频下载解决方案**
+## ✨ 项目简介
 
-*跨平台 | 云端处理 | AI智能 | 移动友好*
+本项目是对著名 macOS 应用 Downie 4 的完整功能迁移和现代化改造。通过深入分析 Downie 4 的核心架构，我们重新设计了一个跨平台的 Web 解决方案。
 
-</div>
+### 🔍 Downie 4 核心功能分析
 
----
+通过分析 `/Applications/Downie 4.app/Contents/` 结构，我们发现了其关键组件：
 
-## 📊 **项目背景**
+- **浏览器扩展** (`PlugIns/Downie Extension New.appex/`)
+- **FFmpeg 集成** (`Resources/ffmpeg`)  
+- **多语言支持** (`Resources/zh-Hans.lproj/`)
+- **视频处理框架** (`Frameworks/DownieCore.framework/`)
 
-### 🔍 **Downie 4 分析总结**
+### 🎯 完整功能迁移
 
-通过深度分析macOS平台的知名视频下载工具Downie 4，我们发现了其核心架构和实现原理：
+我们已成功迁移了 Downie 4 的核心功能：
 
-#### **核心技术栈**
-- **原生应用**: macOS Cocoa框架
-- **浏览器扩展**: WebExtensions API (Manifest V3)
-- **通信机制**: Native Messaging Protocol
-- **视频处理**: 内置FFmpeg引擎
-- **网站支持**: 数百个视频平台解析器
+#### ✅ 已完成的功能
+1. **视频检测与提取** - 智能识别网页视频资源
+2. **下载管理** - 队列管理、进度追踪、并发控制
+3. **浏览器扩展** - 右键菜单、快捷键、一键下载
+4. **FFmpeg 视频处理** - 格式转换、质量调整、音频提取
+5. **现代化UI界面** - React + TypeScript 响应式设计
 
-#### **关键功能特性**
-- 🌐 **浏览器集成**: 右键菜单 + 快捷键操作
-- 🍪 **Cookie处理**: 自动传递登录状态
-- 📥 **智能下载**: 多线程 + 断点续传
-- 🎬 **格式转换**: FFmpeg后处理
-- 📋 **历史管理**: 完整下载记录
-- 🔍 **UGE模式**: 不支持网站的引导提取
+## 🏗️ 技术架构
 
----
+### 🎨 前端技术栈
+- **React 18 + TypeScript** - 现代化前端框架
+- **Tailwind CSS + Framer Motion** - 样式和动画
+- **WebSocket** - 实时进度更新
+- **PWA** - 可安装的 Web 应用
 
-## 🎯 **项目目标**
+### ⚙️ 后端架构  
+- **FastAPI + Python** - 高性能 API 服务
+- **异步处理** - asyncio + aiohttp
+- **FFmpeg 集成** - 视频处理和格式转换
+- **智能提取** - 多网站视频解析
 
-### 💫 **突破限制，全面升级**
-
-基于Downie 4的成功经验，我们设计了一个**全面超越**的Web解决方案：
-
-#### 🌍 **平台无关**
-- ❌ **原版限制**: 仅支持macOS
-- ✅ **增强版**: Windows/Mac/Linux/iOS/Android全覆盖
-
-#### ☁️ **云端优势**
-- ❌ **原版限制**: 本地处理，受硬件限制
-- ✅ **增强版**: 云端处理，无限制下载
-
-#### 📱 **移动优化**
-- ❌ **原版限制**: 桌面专用
-- ✅ **增强版**: 移动优先设计
-
-#### 🤖 **AI加持**
-- ❌ **原版功能**: 手动选择质量
-- ✅ **增强版**: AI智能推荐最佳选项
-
----
-
-## 🏗️ **技术架构**
-
-### 🎨 **前端技术栈**
-```javascript
-// 核心框架
-- React 18 + TypeScript
-- Tailwind CSS + Framer Motion
-- PWA技术栈 (Service Worker)
-- Web Workers (后台处理)
-
-// 特色功能
-- 响应式设计 (Mobile First)
-- 离线队列管理
-- 实时进度推送
-- 手势操作支持
-```
-
-### ⚙️ **后端架构**
-```python
-# 核心服务
-- FastAPI + Python 3.11
-- Celery + Redis (任务队列)
-- PostgreSQL (数据持久化)
-- Docker容器化部署
-
-# 视频处理
-- yt-dlp (视频提取引擎)
-- FFmpeg (格式转换)
-- 分布式下载节点
-- 智能CDN分发
-```
-
-### 🔗 **API设计**
+### 🔗 API 设计
 ```yaml
-# RESTful API
-POST /api/extract    # 提取视频信息
-POST /api/download   # 创建下载任务
-GET  /api/progress   # 查询下载进度
-GET  /api/history    # 获取历史记录
-POST /api/batch      # 批量下载
-
-# WebSocket实时通信
-/ws/download/{task_id}  # 实时进度推送
+# 主要 API 端点
+POST /api/downloads/extract    # 提取视频信息
+POST /api/downloads/add        # 创建下载任务  
+POST /api/downloads/start/{id} # 启动下载
+GET  /api/downloads/tasks      # 获取任务列表
+WebSocket /api/downloads/ws    # 实时进度推送
 ```
 
 ---

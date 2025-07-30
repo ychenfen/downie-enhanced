@@ -16,20 +16,18 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, HttpUrl
 
 # Internal imports
-from core.video_extractor import VideoExtractor
-from core.download_manager import DownloadManager
-from core.websocket_manager import WebSocketManager
-from models.download import DownloadRequest, DownloadResponse, DownloadStatus
-from database.connection import database
-from utils.logger import setup_logger
+from app.core.video_extractor import VideoExtractor
+from app.core.download_manager import DownloadManager
+from app.api.download_routes import router as download_router
 
-# Setup structured logging
-logger = setup_logger()
+# Setup basic logging
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Global managers
 video_extractor = VideoExtractor()
 download_manager = DownloadManager()
-websocket_manager = WebSocketManager()
 
 
 @asynccontextmanager
@@ -37,15 +35,11 @@ async def lifespan(app: FastAPI):
     """Application lifespan manager"""
     # Startup
     logger.info("🚀 Starting Downie Enhanced Backend...")
-    await database.connect()
-    await download_manager.initialize()
     
     yield
     
     # Shutdown
     logger.info("🛑 Shutting down Downie Enhanced Backend...")
-    await database.disconnect()
-    await download_manager.cleanup()
 
 
 # Create FastAPI app
@@ -69,6 +63,9 @@ app.add_middleware(
 
 # Mount static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Include API routers
+app.include_router(download_router)
 
 
 # Pydantic models
@@ -113,8 +110,7 @@ async def health_check():
     return {
         "status": "healthy",
         "message": "Downie Enhanced Backend is running",
-        "version": "1.0.0",
-        "database": "connected" if database.is_connected else "disconnected"
+        "version": "1.0.0"
     }
 
 
@@ -122,10 +118,9 @@ async def health_check():
 async def get_stats():
     """Get server statistics"""
     return {
-        "active_downloads": download_manager.get_active_count(),
-        "completed_downloads": await download_manager.get_completed_count(),
-        "supported_sites": len(video_extractor.get_supported_sites()),
-        "websocket_connections": websocket_manager.get_connection_count()
+        "active_downloads": len(download_manager.get_active_tasks()),
+        "total_downloads": len(download_manager.get_all_tasks()),
+        "supported_sites": len(video_extractor.supported_sites)
     }
 
 
@@ -133,133 +128,34 @@ async def get_stats():
 async def analyze_url(request: URLAnalyzeRequest):
     """Analyze video URL and extract metadata"""
     try:
-        logger.info("Analyzing URL", url=str(request.url))
+        logger.info(f"Analyzing URL: {str(request.url)}")
         
-        result = await video_extractor.extract_info(
-            url=str(request.url),
-            extract_playlist=request.extract_playlist
-        )
+        async with video_extractor as extractor:
+            result = await extractor.extract_video_info(str(request.url))
         
         if not result:
             raise HTTPException(status_code=400, detail="Unable to extract video information")
         
         return URLAnalyzeResponse(
-            title=result.get("title", "Unknown"),
-            duration=result.get("duration", 0),
-            thumbnail=result.get("thumbnail", ""),
-            formats=result.get("formats", []),
-            is_playlist=result.get("_type") == "playlist",
-            playlist_count=len(result.get("entries", [])) if result.get("_type") == "playlist" else 0
+            title=result.title or "Unknown",
+            duration=result.duration,
+            thumbnail=result.thumbnail,
+            formats=result.formats,
+            is_playlist=len(result.formats) > 1,
+            playlist_count=len(result.formats)
         )
         
     except Exception as e:
-        logger.error("Failed to analyze URL", url=str(request.url), error=str(e))
+        logger.error(f"Failed to analyze URL {str(request.url)}: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
-
-
-@app.post("/api/download", response_model=DownloadResponse)
-async def create_download(request: DownloadRequest, background_tasks: BackgroundTasks):
-    """Create a new download task"""
-    try:
-        logger.info("Creating download task", url=request.url)
-        
-        # Create download task
-        task_id = await download_manager.create_task(
-            url=request.url,
-            quality=request.quality,
-            format=request.format,
-            output_path=request.output_path
-        )
-        
-        # Start download in background
-        background_tasks.add_task(
-            download_manager.start_download,
-            task_id=task_id,
-            websocket_manager=websocket_manager
-        )
-        
-        return DownloadResponse(
-            task_id=task_id,
-            status=DownloadStatus.QUEUED,
-            message="Download task created successfully"
-        )
-        
-    except Exception as e:
-        logger.error("Failed to create download", url=request.url, error=str(e))
-        raise HTTPException(status_code=500, detail=f"Download creation failed: {str(e)}")
-
-
-@app.get("/api/download/{task_id}/status")
-async def get_download_status(task_id: str):
-    """Get download task status"""
-    try:
-        status = await download_manager.get_task_status(task_id)
-        if not status:
-            raise HTTPException(status_code=404, detail="Download task not found")
-        
-        return status
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error("Failed to get download status", task_id=task_id, error=str(e))
-        raise HTTPException(status_code=500, detail=f"Status retrieval failed: {str(e)}")
-
-
-@app.delete("/api/download/{task_id}")
-async def cancel_download(task_id: str):
-    """Cancel a download task"""
-    try:
-        success = await download_manager.cancel_task(task_id)
-        if not success:
-            raise HTTPException(status_code=404, detail="Download task not found")
-        
-        return {"message": "Download cancelled successfully"}
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error("Failed to cancel download", task_id=task_id, error=str(e))
-        raise HTTPException(status_code=500, detail=f"Cancellation failed: {str(e)}")
-
-
-@app.get("/api/downloads")
-async def list_downloads(limit: int = 50, offset: int = 0):
-    """List all downloads with pagination"""
-    try:
-        downloads = await download_manager.list_downloads(limit=limit, offset=offset)
-        return {
-            "downloads": downloads,
-            "total": await download_manager.get_total_count(),
-            "limit": limit,
-            "offset": offset
-        }
-        
-    except Exception as e:
-        logger.error("Failed to list downloads", error=str(e))
-        raise HTTPException(status_code=500, detail=f"List retrieval failed: {str(e)}")
-
-
-@app.websocket("/ws/download/{task_id}")
-async def websocket_download_progress(websocket: WebSocket, task_id: str):
-    """WebSocket endpoint for real-time download progress"""
-    await websocket_manager.connect(websocket, task_id)
-    
-    try:
-        while True:
-            # Keep connection alive
-            await websocket.receive_text()
-            
-    except WebSocketDisconnect:
-        websocket_manager.disconnect(websocket, task_id)
 
 
 @app.get("/api/supported-sites")
 async def get_supported_sites():
     """Get list of supported video sites"""
     return {
-        "sites": video_extractor.get_supported_sites(),
-        "total": len(video_extractor.get_supported_sites())
+        "sites": video_extractor.supported_sites,
+        "total": len(video_extractor.supported_sites)
     }
 
 
