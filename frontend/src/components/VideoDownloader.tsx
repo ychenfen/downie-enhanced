@@ -1,21 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  CloudDownloadIcon, 
-  PlayIcon, 
-  PauseIcon, 
-  StopIcon,
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-  CogIcon,
-  ClipboardCopyIcon,
-  TrashIcon,
-  FolderIcon,
-  DocumentDuplicateIcon,
-  Cog6ToothIcon,
-  QueueListIcon,
-  ChartBarIcon
-} from '@heroicons/react/24/outline';
+// Simplified icons without @heroicons dependency
+const CloudDownloadIcon = ({ className }: { className?: string }) => <span className={className}>⬇️</span>;
+const PlayIcon = ({ className }: { className?: string }) => <span className={className}>▶️</span>;
+const PauseIcon = ({ className }: { className?: string }) => <span className={className}>⏸️</span>;
+const StopIcon = ({ className }: { className?: string }) => <span className={className}>⏹️</span>;
+const CheckCircleIcon = ({ className }: { className?: string }) => <span className={className}>✅</span>;
+const ExclamationCircleIcon = ({ className }: { className?: string }) => <span className={className}>❌</span>;
+const CogIcon = ({ className }: { className?: string }) => <span className={className}>⚙️</span>;
+const ClipboardCopyIcon = ({ className }: { className?: string }) => <span className={className}>📋</span>;
+const TrashIcon = ({ className }: { className?: string }) => <span className={className}>🗑️</span>;
+const FolderIcon = ({ className }: { className?: string }) => <span className={className}>📁</span>;
+const DocumentDuplicateIcon = ({ className }: { className?: string }) => <span className={className}>📄</span>;
+const Cog6ToothIcon = ({ className }: { className?: string }) => <span className={className}>⚙️</span>;
+const QueueListIcon = ({ className }: { className?: string }) => <span className={className}>📝</span>;
+const ChartBarIcon = ({ className }: { className?: string }) => <span className={className}>📊</span>;
 import toast from 'react-hot-toast';
 import { useDownload } from '../hooks/useDownload';
 import { DownloadRequest } from '../types';
@@ -761,7 +760,7 @@ const VideoDownloader: React.FC = () => {
                             if ('showDirectoryPicker' in window) {
                               toast.success('Feature coming soon: Open file location');
                             } else {
-                              toast.info('File saved to: ' + userSettings.downloadPath);
+                              toast.success('File saved to: ' + userSettings.downloadPath);
                             }
                           }}
                           className="p-1 text-blue-500 hover:text-blue-700"

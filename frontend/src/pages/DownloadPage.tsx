@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import VideoDownloader from '../components/VideoDownloader';
-import { 
-  ChartBarIcon, 
-  CogIcon, 
-  CloudDownloadIcon,
-  ClockIcon,
-  CheckCircleIcon,
-  ExclamationCircleIcon
-} from '@heroicons/react/24/outline';
+// Simplified icons without @heroicons dependency
+const ChartBarIcon = ({ className }: { className?: string }) => <span className={className}>📊</span>;
+const CogIcon = ({ className }: { className?: string }) => <span className={className}>⚙️</span>;
+const CloudDownloadIcon = ({ className }: { className?: string }) => <span className={className}>⬇️</span>;
+const ClockIcon = ({ className }: { className?: string }) => <span className={className}>🕐</span>;
+const CheckCircleIcon = ({ className }: { className?: string }) => <span className={className}>✅</span>;
+const ExclamationCircleIcon = ({ className }: { className?: string }) => <span className={className}>❌</span>;
 
 interface DownloadStats {
   total_tasks: number;
