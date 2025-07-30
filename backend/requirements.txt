@@ -1,55 +1,52 @@
-# Web Framework
+# Core Web Framework
 fastapi==0.109.0
 uvicorn[standard]==0.27.0
 pydantic==2.5.3
 pydantic-settings==2.1.0
 
-# Database
-asyncpg==0.29.0
-sqlalchemy[asyncio]==2.0.25
-alembic==1.13.1
-
-# Task Queue
-celery[redis]==5.3.6
-redis==5.0.1
-
-# Video Processing
-yt-dlp==2024.1.30
-ffmpeg-python==0.2.0
-
-# HTTP Client
-httpx==0.26.0
+# HTTP Client & File Handling
+aiohttp==3.9.1
 aiofiles==23.2.1
-
-# Authentication & Security
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
+httpx==0.26.0
 python-multipart==0.0.6
 
-# Monitoring & Logging
-prometheus-client==0.19.0
+# Video Processing (Core Dependencies)
+yt-dlp==2024.1.30
+
+# WebSocket Support
+websockets==12.0
+
+# Environment & Configuration
+python-dotenv==1.0.0
+
+# Logging
 structlog==24.1.0
 
-# Development
+# Development & Testing
 pytest==8.0.0
 pytest-asyncio==0.23.4
 black==24.1.1
 isort==5.13.2
-mypy==1.8.0
 
-# WebSocket
-websockets==12.0
+# Optional: Database Support (uncomment if needed)
+# asyncpg==0.29.0
+# sqlalchemy[asyncio]==2.0.25
+# alembic==1.13.1
 
-# Environment
-python-dotenv==1.0.0
+# Optional: Task Queue (uncomment if needed)
+# celery[redis]==5.3.6
+# redis==5.0.1
 
-# CORS
-fastapi-cors==0.0.6
+# Optional: Authentication (uncomment if needed)
+# python-jose[cryptography]==3.3.0
+# passlib[bcrypt]==1.7.4
 
-# File Processing
-pillow==10.2.0
-python-magic==0.4.27
+# Optional: Monitoring (uncomment if needed)
+# prometheus-client==0.19.0
+
+# Optional: File Processing (uncomment if needed)
+# pillow==10.2.0
+# python-magic==0.4.27
 
 # Utilities
 rich==13.7.0
-typer==0.9.0

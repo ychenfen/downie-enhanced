@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downie Enhanced - 在线演示</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .demo-video {
+            position: relative;
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .feature-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold gradient-bg bg-clip-text text-transparent">
+                            <i class="fas fa-download mr-2"></i>Downie Enhanced
+                        </h1>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="https://github.com/ychenfen/downie-enhanced" target="_blank" 
+                       class="text-gray-600 hover:text-gray-900 transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <button onclick="scrollTo('install')" 
+                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        立即开始
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl font-bold mb-6">
+                强大的视频下载工具
+            </h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto opacity-90">
+                基于原版 Downie 4 完整功能迁移，支持多平台视频下载、实时进度跟踪、浏览器扩展集成
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button onclick="scrollTo('demo')" 
+                        class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    <i class="fas fa-play mr-2"></i>观看演示
+                </button>
+                <button onclick="scrollTo('install')" 
+                        class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                    <i class="fas fa-download mr-2"></i>立即部署
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能特性 -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">核心功能</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    完整迁移 Downie 4 的所有核心功能，并采用现代 Web 技术栈重构
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 功能卡片 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-4xl feature-icon mb-4">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">多平台支持</h3>
+                    <p class="text-gray-600">支持 YouTube、小鹅通、M3U8 流媒体等多种视频平台，智能识别视频源</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-4xl feature-icon mb-4">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">实时进度</h3>
+                    <p class="text-gray-600">WebSocket 实时连接，实时显示下载进度、速度和剩余时间</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-4xl feature-icon mb-4">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">浏览器扩展</h3>
+                    <p class="text-gray-600">Chrome/Firefox 扩展，右键即可下载，无缝集成浏览体验</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-4xl feature-icon mb-4">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">FFmpeg 处理</h3>
+                    <p class="text-gray-600">内置 FFmpeg 支持，自动转码、格式转换和质量优化</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-4xl feature-icon mb-4">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">现代架构</h3>
+                    <p class="text-gray-600">FastAPI + React 18 + TypeScript，高性能异步处理</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="text-4xl feature-icon mb-4">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">开源免费</h3>
+                    <p class="text-gray-600">完全开源，MIT 许可证，可自由部署和定制</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 演示视频区域 -->
+    <section id="demo" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">产品演示</h2>
+                <p class="text-gray-600">查看 Downie Enhanced 的完整功能演示</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="demo-video aspect-video mb-8">
+                    <div class="flex items-center justify-center h-full">
+                        <div class="text-center">
+                            <div class="text-6xl text-gray-400 mb-4">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-700 mb-2">演示视频</h3>
+                            <p class="text-gray-500">点击下方截图查看功能演示</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 功能截图 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-100 rounded-lg p-6 text-center">
+                        <div class="text-4xl text-blue-600 mb-3">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Web 界面</h4>
+                        <p class="text-sm text-gray-600">现代化的 React 界面，直观易用</p>
+                    </div>
+                    
+                    <div class="bg-gray-100 rounded-lg p-6 text-center">
+                        <div class="text-4xl text-green-600 mb-3">
+                            <i class="fas fa-browser"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">浏览器扩展</h4>
+                        <p class="text-sm text-gray-600">右键菜单快速下载</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术栈 -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">技术栈</h2>
+                <p class="text-gray-600">基于现代 Web 技术构建，性能卓越</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl text-blue-600 mb-2"><i class="fab fa-python"></i></div>
+                    <span class="text-sm font-medium">Python</span>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl text-green-600 mb-2"><i class="fas fa-rocket"></i></div>
+                    <span class="text-sm font-medium">FastAPI</span>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl text-blue-500 mb-2"><i class="fab fa-react"></i></div>
+                    <span class="text-sm font-medium">React 18</span>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl text-blue-700 mb-2"><i class="fab fa-js"></i></div>
+                    <span class="text-sm font-medium">TypeScript</span>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl text-gray-700 mb-2"><i class="fas fa-film"></i></div>
+                    <span class="text-sm font-medium">FFmpeg</span>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl text-purple-600 mb-2"><i class="fas fa-plug"></i></div>
+                    <span class="text-sm font-medium">WebSocket</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 安装指南 -->
+    <section id="install" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">快速开始</h2>
+                <p class="text-gray-600">三步即可完成部署，开始使用 Downie Enhanced</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- 部署选项 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    <div class="text-center p-6 border-2 border-blue-200 rounded-lg hover:border-blue-400 transition-colors cursor-pointer" onclick="showInstallMethod('local')">
+                        <div class="text-4xl text-blue-600 mb-3">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">本地部署</h3>
+                        <p class="text-sm text-gray-600">完整功能，本地运行</p>
+                    </div>
+                    
+                    <div class="text-center p-6 border-2 border-green-200 rounded-lg hover:border-green-400 transition-colors cursor-pointer" onclick="showInstallMethod('docker')">
+                        <div class="text-4xl text-green-600 mb-3">
+                            <i class="fab fa-docker"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">Docker 部署</h3>
+                        <p class="text-sm text-gray-600">一键启动，环境隔离</p>
+                    </div>
+                    
+                    <div class="text-center p-6 border-2 border-purple-200 rounded-lg hover:border-purple-400 transition-colors cursor-pointer" onclick="showInstallMethod('cloud')">
+                        <div class="text-4xl text-purple-600 mb-3">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">云端部署</h3>
+                        <p class="text-sm text-gray-600">在线访问，无需安装</p>
+                    </div>
+                </div>
+                
+                <!-- 安装步骤 -->
+                <div id="install-content" class="bg-gray-50 rounded-lg p-8">
+                    <div id="local-install" class="install-method">
+                        <h3 class="text-xl font-semibold mb-4">本地部署步骤</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-4 mt-1">1</span>
+                                <div>
+                                    <h4 class="font-medium mb-1">克隆仓库</h4>
+                                    <div class="bg-gray-800 text-green-400 p-3 rounded font-mono text-sm">
+                                        git clone https://github.com/ychenfen/downie-enhanced.git<br>
+                                        cd downie-enhanced
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-4 mt-1">2</span>
+                                <div>
+                                    <h4 class="font-medium mb-1">安装依赖</h4>
+                                    <div class="bg-gray-800 text-green-400 p-3 rounded font-mono text-sm">
+                                        # 后端依赖<br>
+                                        cd backend && pip install -r requirements.txt<br><br>
+                                        # 前端依赖<br>
+                                        cd ../frontend && npm install
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-4 mt-1">3</span>
+                                <div>
+                                    <h4 class="font-medium mb-1">启动服务</h4>
+                                    <div class="bg-gray-800 text-green-400 p-3 rounded font-mono text-sm">
+                                        # 启动后端 (终端1)<br>
+                                        cd backend && python main.py<br><br>
+                                        # 启动前端 (终端2)<br>
+                                        cd frontend && npm start
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <p class="text-blue-800 text-sm">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                启动后访问 <strong>http://localhost:3000</strong> 即可使用
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div id="docker-install" class="install-method hidden">
+                        <h3 class="text-xl font-semibold mb-4">Docker 部署步骤</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-4 mt-1">1</span>
+                                <div>
+                                    <h4 class="font-medium mb-1">克隆仓库</h4>
+                                    <div class="bg-gray-800 text-green-400 p-3 rounded font-mono text-sm">
+                                        git clone https://github.com/ychenfen/downie-enhanced.git<br>
+                                        cd downie-enhanced
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <span class="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-4 mt-1">2</span>
+                                <div>
+                                    <h4 class="font-medium mb-1">一键启动</h4>
+                                    <div class="bg-gray-800 text-green-400 p-3 rounded font-mono text-sm">
+                                        docker-compose up -d
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                            <p class="text-green-800 text-sm">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                Docker 会自动处理所有依赖，访问 <strong>http://localhost:3000</strong>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div id="cloud-install" class="install-method hidden">
+                        <h3 class="text-xl font-semibold mb-4">云端部署选项</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <a href="#" class="block p-4 border border-gray-200 rounded-lg hover:border-blue-400 transition-colors">
+                                <div class="text-2xl text-blue-600 mb-2">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <h4 class="font-medium mb-1">Vercel</h4>
+                                <p class="text-sm text-gray-600">前端部署</p>
+                            </a>
+                            
+                            <a href="#" class="block p-4 border border-gray-200 rounded-lg hover:border-green-400 transition-colors">
+                                <div class="text-2xl text-green-600 mb-2">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                                <h4 class="font-medium mb-1">Railway</h4>
+                                <p class="text-sm text-gray-600">全栈部署</p>
+                            </a>
+                            
+                            <a href="#" class="block p-4 border border-gray-200 rounded-lg hover:border-purple-400 transition-colors">
+                                <div class="text-2xl text-purple-600 mb-2">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <h4 class="font-medium mb-1">Heroku</h4>
+                                <p class="text-sm text-gray-600">便捷部署</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                            <p class="text-purple-800 text-sm">
+                                <i class="fas fa-star mr-2"></i>
+                                云端部署配置文件正在准备中，敬请期待
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 社区和支持 -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">社区支持</h2>
+                <p class="text-gray-600">加入我们的社区，获取帮助和分享经验</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="text-4xl text-gray-800 mb-4">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">GitHub</h3>
+                    <p class="text-gray-600 mb-4">查看源码、提交问题、参与开发</p>
+                    <a href="https://github.com/ychenfen/downie-enhanced" target="_blank" 
+                       class="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                        访问仓库
+                    </a>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="text-4xl text-blue-600 mb-4">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">文档</h3>
+                    <p class="text-gray-600 mb-4">完整的 API 文档和使用指南</p>
+                    <a href="https://github.com/ychenfen/downie-enhanced/blob/main/docs/API.md" target="_blank" 
+                       class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        查看文档
+                    </a>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="text-4xl text-red-600 mb-4">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">问题反馈</h3>
+                    <p class="text-gray-600 mb-4">遇到问题？提交 Issue 获取帮助</p>
+                    <a href="https://github.com/ychenfen/downie-enhanced/issues" target="_blank" 
+                       class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        提交问题
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Downie Enhanced</h3>
+                    <p class="text-gray-400">
+                        基于 Downie 4 完整功能迁移的现代化视频下载工具
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">快速链接</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#demo" class="hover:text-white transition-colors">产品演示</a></li>
+                        <li><a href="#install" class="hover:text-white transition-colors">安装指南</a></li>
+                        <li><a href="https://github.com/ychenfen/downie-enhanced" class="hover:text-white transition-colors">GitHub</a></li>
+                        <li><a href="https://github.com/ychenfen/downie-enhanced/docs" class="hover:text-white transition-colors">文档</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">技术支持</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="https://github.com/ychenfen/downie-enhanced/issues" class="hover:text-white transition-colors">问题反馈</a></li>
+                        <li><a href="https://github.com/ychenfen/downie-enhanced/discussions" class="hover:text-white transition-colors">社区讨论</a></li>
+                        <li><a href="https://github.com/ychenfen/downie-enhanced/wiki" class="hover:text-white transition-colors">Wiki</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Downie Enhanced. 基于 MIT 许可证开源</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollTo(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showInstallMethod(method) {
+            // 隐藏所有安装方法
+            document.querySelectorAll('.install-method').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // 显示选中的方法
+            document.getElementById(method + '-install').classList.remove('hidden');
+        }
+
+        // 默认显示本地部署
+        document.addEventListener('DOMContentLoaded', function() {
+            showInstallMethod('local');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "name": "downie-enhanced-demo",
+  "builds": [
+    {
+      "src": "demo/index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/demo/index.html"
+    }
+  ],
+  "functions": {
+    "demo/index.html": {
+      "includeFiles": "demo/**"
+    }
+  }
+}
