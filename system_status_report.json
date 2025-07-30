@@ -1,0 +1,53 @@
+{
+  "Python版本": {
+    "status": "pass",
+    "version": "3.9.6",
+    "required": "3.9+",
+    "message": "Python版本符合要求"
+  },
+  "Node.js版本": {
+    "status": "pass",
+    "version": "24.3.0",
+    "required": "16.0+",
+    "message": "Node.js版本符合要求"
+  },
+  "FFmpeg安装": {
+    "status": "pass",
+    "version": "7.1.1",
+    "message": "FFmpeg已正确安装"
+  },
+  "Git安装": {
+    "status": "pass",
+    "version": "2.50.0",
+    "message": "Git已正确安装"
+  },
+  "Python依赖": {
+    "status": "pass",
+    "has_venv": false,
+    "message": "核心Python依赖已安装"
+  },
+  "Node.js依赖": {
+    "status": "pass",
+    "message": "Node.js依赖已正确安装"
+  },
+  "项目结构": {
+    "status": "pass",
+    "message": "项目文件结构完整"
+  },
+  "文件权限": {
+    "status": "pass",
+    "message": "文件权限正常"
+  },
+  "后端服务": {
+    "status": "fail",
+    "message": "后端服务响应异常: HTTP 502"
+  },
+  "前端服务": {
+    "status": "fail",
+    "message": "前端服务响应异常: HTTP 502"
+  },
+  "WebSocket连接": {
+    "status": "pass",
+    "message": "WebSocket连接正常"
+  }
+}
