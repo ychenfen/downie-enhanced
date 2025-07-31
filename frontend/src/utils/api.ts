@@ -1,6 +1,11 @@
+import { mockAPI } from '../services/mockApi';
+
+// For GitHub Pages deployment, use mock API
+const IS_DEMO = process.env.NODE_ENV === 'production' && !process.env.REACT_APP_API_URL;
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
-export const downloadAPI = {
+// Use mock API for demo deployment, real API for development
+export const downloadAPI = IS_DEMO ? mockAPI : {
   extract: async (data: any) => {
     const response = await fetch(`${API_BASE}/downloads/extract`, {
       method: 'POST',
