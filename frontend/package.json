@@ -2,6 +2,7 @@
   "name": "downie-enhanced-frontend",
   "version": "1.0.0",
   "description": "Downie Enhanced - Modern Web Video Downloader Frontend",
+  "homepage": "https://ychenfen.github.io/downie-enhanced",
   "private": true,
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -40,7 +41,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
