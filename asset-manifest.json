@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/downie-enhanced/static/css/main.0d0d62aa.css",
+    "main.js": "/downie-enhanced/static/js/main.09f29535.js",
+    "index.html": "/downie-enhanced/index.html",
+    "main.0d0d62aa.css.map": "/downie-enhanced/static/css/main.0d0d62aa.css.map",
+    "main.09f29535.js.map": "/downie-enhanced/static/js/main.09f29535.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0d0d62aa.css",
+    "static/js/main.09f29535.js"
+  ]
+}
